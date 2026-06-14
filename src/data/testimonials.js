@@ -1,0 +1,42 @@
+export const TESTIMONIALS = [
+  {
+    id: 1,
+    name: 'Ananya Borah',
+    role: 'Family Trip to Pasighat',
+    rating: 5,
+    avatar: 'https://i.pravatar.cc/150?img=47',
+    text: 'Absolutely seamless experience! The driver was punctual, the Innova was spotless, and the Pasighat route was stunning. D.B. Enterprise made our family trip unforgettable.',
+  },
+  {
+    id: 2,
+    name: 'Rajat Saikia',
+    role: 'Airport Transfer',
+    rating: 5,
+    avatar: 'https://i.pravatar.cc/150?img=12',
+    text: 'Booked an early morning airport drop and they were waiting 10 minutes ahead of time. Clean car, fair price, no surprises. My go-to taxi service in Dibrugarh now.',
+  },
+  {
+    id: 3,
+    name: 'Priya Mehta',
+    role: 'Mechuka Tour Package',
+    rating: 5,
+    avatar: 'https://i.pravatar.cc/150?img=32',
+    text: 'The Mechuka package was beautifully organised — comfortable vehicle, knowledgeable driver and zero hassle. Worth every rupee. Highly recommend for North East travel.',
+  },
+  {
+    id: 4,
+    name: 'Imran Hussain',
+    role: 'Outstation to Sivasagar',
+    rating: 5,
+    avatar: 'https://i.pravatar.cc/150?img=15',
+    text: 'Professional from start to finish. Transparent pricing and a smooth ride to Sivasagar and back. The 24/7 support actually answered at midnight when I needed to reschedule.',
+  },
+  {
+    id: 5,
+    name: 'Sneha Gogoi',
+    role: 'Group Tour',
+    rating: 5,
+    avatar: 'https://i.pravatar.cc/150?img=45',
+    text: 'We were a group of 11 and the Tempo Traveller was perfect. Safe driving on hill roads and a friendly chauffeur who knew all the best spots. Five stars!',
+  },
+]

@@ -1,0 +1,67 @@
+import { IMAGES } from './images'
+
+export const FLEET = [
+  {
+    id: 'innova',
+    name: 'Toyota Innova Crysta',
+    type: 'Premium SUV',
+    image: IMAGES.fleetInnova,
+    seats: 7,
+    luggage: 4,
+    ac: true,
+    price: '₹14 / km',
+    tag: 'Best Seller',
+  },
+  {
+    id: 'suv',
+    name: 'Mahindra Scorpio-N',
+    type: 'Rugged SUV',
+    image: IMAGES.fleetSuv,
+    seats: 7,
+    luggage: 3,
+    ac: true,
+    price: '₹13 / km',
+    tag: 'Hill Friendly',
+  },
+  {
+    id: 'sedan',
+    name: 'Honda City',
+    type: 'Comfort Sedan',
+    image: IMAGES.fleetSedan,
+    seats: 4,
+    luggage: 2,
+    ac: true,
+    price: '₹11 / km',
+    tag: 'City Rides',
+  },
+  {
+    id: 'luxury',
+    name: 'Toyota Fortuner',
+    type: 'Luxury SUV',
+    image: IMAGES.fleetLuxury,
+    seats: 7,
+    luggage: 4,
+    ac: true,
+    price: '₹18 / km',
+    tag: 'Luxury',
+  },
+  {
+    id: 'tempo',
+    name: 'Tempo Traveller',
+    type: 'Group Van',
+    image: IMAGES.fleetTempo,
+    seats: 12,
+    luggage: 8,
+    ac: true,
+    price: '₹22 / km',
+    tag: 'Group Tours',
+  },
+]
+
+export const VEHICLE_TYPES = [
+  'Sedan (4 Seater)',
+  'SUV (7 Seater)',
+  'Innova Crysta',
+  'Luxury SUV',
+  'Tempo Traveller (12 Seater)',
+]
