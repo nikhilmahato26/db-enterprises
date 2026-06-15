@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 import { motion, AnimatePresence } from 'framer-motion'
 import { MapPin, Navigation, Calendar, Car, Users, Phone, CheckCircle2, Lock, Route, IndianRupee } from 'lucide-react'
 import { BUSINESS, whatsappLink } from '../../data/business'
-import { DESTINATIONS, RATE_BY_DESTINATION } from '../../data/routes'
+import { DESTINATIONS, RATE_BY_DESTINATION, VEHICLE_RATE_TIER } from '../../data/routes'
 import { VEHICLE_TYPES } from '../../data/fleet'
 
 // Premium booking form. `glass` renders the hero glassmorphism variant.
@@ -26,12 +26,21 @@ export default function BookingForm({ glass = false, prefillDestination = '' }) 
   })
   const [sent, setSent] = useState(false)
 
-  // Live fare estimate for the selected destination (Hatchback / Sedan rate card).
+  // Live fare estimate — depends on the selected destination and vehicle class.
   const selectedDestination = watch('destination')
-  const fare = selectedDestination ? RATE_BY_DESTINATION[selectedDestination] : null
+  const selectedVehicle = watch('vehicle')
+  const route = selectedDestination ? RATE_BY_DESTINATION[selectedDestination] : null
+  const tier = VEHICLE_RATE_TIER[selectedVehicle] // undefined if no/unknown vehicle
+  // Show the exact price for the chosen vehicle, else the lowest (Dzire) as a "from" estimate.
+  const farePrice = route ? (tier ? route.rates[tier] : route.rates.dzire) : null
+  // Fortuner (and any other vehicle not in the rate card) → quote on request.
+  const fareOnRequest = !!selectedVehicle && !tier
+  const isExactFare = !!route && !!tier
 
   const onSubmit = (data) => {
-    const fareLine = fare ? `%0AEstimated Fare: ₹${fare.rate.toLocaleString('en-IN')} (${fare.km} km)` : ''
+    const fareLine = farePrice
+      ? `%0AEstimated Fare: ${isExactFare ? '' : 'from '}₹${farePrice.toLocaleString('en-IN')} (${route.km} km)`
+      : ''
     const msg = `New Booking Request%0A--------------------%0AFrom: ${BUSINESS.startingLocation}%0ATo: ${data.destination}%0ADate: ${data.date}%0AVehicle: ${data.vehicle}%0APassengers: ${data.passengers}%0APhone: ${data.phone}${fareLine}`
     window.open(whatsappLink(decodeURIComponent(msg)), '_blank')
     setSent(true)
@@ -162,7 +171,7 @@ export default function BookingForm({ glass = false, prefillDestination = '' }) 
 
         {/* Live fare preview */}
         <AnimatePresence initial={false}>
-          {fare && (
+          {route && (
             <motion.div
               initial={{ opacity: 0, height: 0, marginTop: 0 }}
               animate={{ opacity: 1, height: 'auto', marginTop: 0 }}
@@ -174,14 +183,25 @@ export default function BookingForm({ glass = false, prefillDestination = '' }) 
                 <div>
                   <p className="flex items-center gap-1.5 text-xs font-medium text-forest-500">
                     <Route size={13} className="text-forest-400" />
-                    {BUSINESS.startingLocation} → {selectedDestination} · {fare.km} km
+                    {BUSINESS.startingLocation} → {selectedDestination} · {route.km} km
                   </p>
-                  <p className="mt-0.5 text-[11px] text-forest-400">Estimated fare · Hatchback / Sedan</p>
+                  <p className="mt-0.5 text-[11px] text-forest-400">
+                    {fareOnRequest
+                      ? `Fare on request · ${selectedVehicle}`
+                      : isExactFare
+                        ? `Estimated fare · ${selectedVehicle}`
+                        : 'Starting fare · select a vehicle for exact price'}
+                  </p>
                 </div>
-                <span className="flex items-center font-serif text-2xl font-bold text-forest-700">
-                  <IndianRupee size={18} strokeWidth={2.5} />
-                  {fare.rate.toLocaleString('en-IN')}
-                </span>
+                {fareOnRequest ? (
+                  <span className="font-serif text-base font-bold text-forest-700">On request</span>
+                ) : (
+                  <span className="flex items-baseline font-serif font-bold text-forest-700">
+                    {!isExactFare && <span className="mr-1 text-[11px] font-medium text-forest-400">from</span>}
+                    <IndianRupee size={18} strokeWidth={2.5} className="self-center" />
+                    <span className="text-2xl">{farePrice.toLocaleString('en-IN')}</span>
+                  </span>
+                )}
               </div>
             </motion.div>
           )}
