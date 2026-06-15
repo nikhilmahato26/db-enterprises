@@ -19,7 +19,7 @@ export const TOURS = [
     location: 'Shi Yomi, Arunachal Pradesh',
     image: IMAGES.mechuka,
     duration: '5 Days / 4 Nights',
-    price: '₹22,499',
+    price: '₹19,999/',
     rating: 5.0,
     highlights: ['Valley Trek', 'Buddhist Monastery', 'River Camp', 'Adventure'],
     description:
