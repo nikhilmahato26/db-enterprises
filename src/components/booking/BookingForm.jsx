@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { motion, AnimatePresence } from 'framer-motion'
-import { MapPin, Navigation, Calendar, Car, Users, Phone, CheckCircle2, Lock } from 'lucide-react'
+import { MapPin, Navigation, Calendar, Car, Users, Phone, CheckCircle2, Lock, Route, IndianRupee } from 'lucide-react'
 import { BUSINESS, whatsappLink } from '../../data/business'
-import { DESTINATIONS } from '../../data/routes'
+import { DESTINATIONS, RATE_BY_DESTINATION } from '../../data/routes'
 import { VEHICLE_TYPES } from '../../data/fleet'
 
 // Premium booking form. `glass` renders the hero glassmorphism variant.
@@ -12,6 +12,7 @@ export default function BookingForm({ glass = false, prefillDestination = '' }) 
     register,
     handleSubmit,
     reset,
+    watch,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -25,8 +26,13 @@ export default function BookingForm({ glass = false, prefillDestination = '' }) 
   })
   const [sent, setSent] = useState(false)
 
+  // Live fare estimate for the selected destination (Hatchback / Sedan rate card).
+  const selectedDestination = watch('destination')
+  const fare = selectedDestination ? RATE_BY_DESTINATION[selectedDestination] : null
+
   const onSubmit = (data) => {
-    const msg = `New Booking Request%0A--------------------%0AFrom: ${BUSINESS.startingLocation}%0ATo: ${data.destination}%0ADate: ${data.date}%0AVehicle: ${data.vehicle}%0APassengers: ${data.passengers}%0APhone: ${data.phone}`
+    const fareLine = fare ? `%0AEstimated Fare: ₹${fare.rate.toLocaleString('en-IN')} (${fare.km} km)` : ''
+    const msg = `New Booking Request%0A--------------------%0AFrom: ${BUSINESS.startingLocation}%0ATo: ${data.destination}%0ADate: ${data.date}%0AVehicle: ${data.vehicle}%0APassengers: ${data.passengers}%0APhone: ${data.phone}${fareLine}`
     window.open(whatsappLink(decodeURIComponent(msg)), '_blank')
     setSent(true)
     setTimeout(() => {
@@ -153,6 +159,33 @@ export default function BookingForm({ glass = false, prefillDestination = '' }) 
           </div>
           {errors.phone && <p className="mt-1 text-xs text-red-500">Enter a valid phone number.</p>}
         </div>
+
+        {/* Live fare preview */}
+        <AnimatePresence initial={false}>
+          {fare && (
+            <motion.div
+              initial={{ opacity: 0, height: 0, marginTop: 0 }}
+              animate={{ opacity: 1, height: 'auto', marginTop: 0 }}
+              exit={{ opacity: 0, height: 0, marginTop: 0 }}
+              transition={{ duration: 0.25 }}
+              className="overflow-hidden"
+            >
+              <div className="flex items-center justify-between rounded-2xl border border-gold-400/40 bg-gold-400/10 px-4 py-3">
+                <div>
+                  <p className="flex items-center gap-1.5 text-xs font-medium text-forest-500">
+                    <Route size={13} className="text-forest-400" />
+                    {BUSINESS.startingLocation} → {selectedDestination} · {fare.km} km
+                  </p>
+                  <p className="mt-0.5 text-[11px] text-forest-400">Estimated fare · Hatchback / Sedan</p>
+                </div>
+                <span className="flex items-center font-serif text-2xl font-bold text-forest-700">
+                  <IndianRupee size={18} strokeWidth={2.5} />
+                  {fare.rate.toLocaleString('en-IN')}
+                </span>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         <motion.button
           type="submit"

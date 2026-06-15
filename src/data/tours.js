@@ -25,4 +25,16 @@ export const TOURS = [
     description:
       'An adventurer’s dream — the enchanting Mechuka Valley with its sweeping landscapes, ancient monastery and thrilling trails.',
   },
+  {
+    id: 'tawang',
+    name: 'Tawang Tour Package',
+    location: 'Tawang, Arunachal Pradesh',
+    image: IMAGES.tawang,
+    duration: '7 Days / 6 Nights',
+    price: '₹24,999',
+    rating: 4.9,
+    highlights: ['Tawang Monastery', 'Sela Pass', 'Madhuri Lake', 'War Memorial'],
+    description:
+      'A magical journey to the land of the dawn-lit mountains. Witness the grandeur of the Tawang Monastery, pass through the Sela Pass, and explore the serene Madhuri Lake.',
+  },
 ]

@@ -84,20 +84,42 @@ export const ROUTES = [
   },
 ]
 
-// Used in booking-form destination dropdowns.
-export const DESTINATIONS = [
-  'Duliajan',
-  'Tinsukia',
-  'Pasighat',
-  'Namsai',
-  'Digboi',
-  'Sivasagar',
-  'Moran',
-  'Roing',
-  'Anini',
-  'Mechuka',
-  'Guwahati',
-  'Jorhat',
-  'Itanagar',
-  'Kaziranga',
+// Pick-up & drop fare card — all from Dibrugarh. Rates are for Hatchback / Sedan.
+export const PICKUP_DROP_RATES = [
+  { to: 'Duliajan', km: 50, rate: 2000 },
+  { to: 'Namrup', km: 80, rate: 2700 },
+  { to: 'Naharkatia', km: 70, rate: 2500 },
+  { to: 'Tinsukia', km: 50, rate: 2000 },
+  { to: 'Digboi', km: 70, rate: 2500 },
+  { to: 'Margherita', km: 100, rate: 3200 },
+  { to: 'Khonsa, Arunachal Pradesh', km: 115, rate: 4000 },
+  { to: 'Roing, Arunachal Pradesh', km: 155, rate: 4200 },
+  { to: 'Namsai, Arunachal Pradesh', km: 135, rate: 3800 },
+  { to: 'Dambuk, Arunachal Pradesh', km: 175, rate: 5000 },
+  { to: 'Pasighat, Arunachal Pradesh', km: 145, rate: 3800 },
+  { to: 'Jonai', km: 110, rate: 3200 },
+  { to: 'Silapathar', km: 60, rate: 2300 },
+  { to: 'Dhemaji', km: 65, rate: 2300 },
+  { to: 'Lakhimpur', km: 150, rate: 4000 },
+  { to: 'Majuli', km: 135, rate: 3800 },
+  { to: 'Moran', km: 45, rate: 1700 },
+  { to: 'Sivasagar', km: 80, rate: 3300 },
+  { to: 'Nazira', km: 70, rate: 2800 },
+  { to: 'Jorhat', km: 155, rate: 4000 },
+  { to: 'Sonari', km: 70, rate: 2200 },
+  { to: 'Alo, Arunachal Pradesh', km: 200, rate: 6000 },
+  { to: 'Golaghat', km: 200, rate: 5500 },
+  { to: 'Tezu, Arunachal Pradesh', km: 200, rate: 5500 },
+  { to: 'Itanagar, Arunachal Pradesh', km: 200, rate: 5500 },
+  { to: 'Naharlagun, Arunachal Pradesh', km: 190, rate: 5300 },
+  { to: 'Likabali, Arunachal Pradesh', km: 75, rate: 2500 },
+  { to: 'Doom Dooma', km: 80, rate: 2700 },
 ]
+
+// Quick lookup by destination label → { km, rate }.
+export const RATE_BY_DESTINATION = Object.fromEntries(
+  PICKUP_DROP_RATES.map((r) => [r.to, { km: r.km, rate: r.rate }]),
+)
+
+// Used in booking-form destination dropdowns.
+export const DESTINATIONS = PICKUP_DROP_RATES.map((r) => r.to)

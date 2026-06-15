@@ -19,6 +19,7 @@ export const IMAGES = {
   // Tours
   anini: u('1626621341517-bbf3d9990a23', 1400),
   mechuka: u('1571401835393-8c5f35328320', 1400),
+  tawang: 'https://www.indiantempletour.com/wp-content/uploads/2023/03/Tawang-Tour-Package.jpg',
 
   // Services
   airport: u('1436491865332-7a61a109cc05'),
@@ -29,11 +30,13 @@ export const IMAGES = {
   outstation: u('1449965408869-eaa3f722e40d'),
 
   // Fleet
-  fleetSuv: u('1519641471654-76ce0107ad1b', 1400),
+  fleetSuv: 'https://stimg.cardekho.com/images/carexteriorimages/630x420/Mahindra/Scorpio-N/10818/1755775730308/front-left-side-47.jpg',
   fleetSedan: u('1552519507-da3b142c6e3d', 1400),
-  fleetInnova: u('1532581140115-3e355d1ed1de', 1400),
+  fleetInnova: 'https://images.overdrive.in/wp-content/uploads/2023/05/Untitled-design-10-900x506.png',
   fleetTempo: u('1464219789935-c2d9d9aba644', 1400),
-  fleetLuxury: u('1503736334956-4c8f8e92946d', 1400),
+  fleetLuxury: 'https://imgd.aeplcdn.com/664x374/n/cw/ec/44709/fortuner-exterior-right-front-three-quarter-7.jpeg?isig=0&q=80',
+  fleetDzire: 'https://i0.wp.com/www.smartprix.com/bytes/wp-content/uploads/2024/11/5-3.webp?ssl=1',
+  fleetBolero:'https://imgd.aeplcdn.com/642x336/n/cw/ec/210987/bolero-exterior-right-front-three-quarter-3.png?isig=0&q=80',
 
   // Gallery
   g1: u('1488646953014-85cb44e25828', 900),
